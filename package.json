@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest ../backend/public"
+    "build": "vue-cli-service build --dest ../backend/public",
+    "start-app": "start cmd /k npm run serve & cd node-app && npm run start",
+    "start-app:dev": "start cmd /k npm run serve & cd node-app && npm run dev"
   },
   "dependencies": {
     "axios": "^0.21.0",
