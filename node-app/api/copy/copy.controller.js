@@ -12,9 +12,10 @@ async function setSchedule(req,res){
     const job = await copyService.runJob(payload);
     res.send(job)
   }catch(err){
+    console.log('ERROR >>>', err);
     res.status(404).send(err);
   }
-
+  
 }
 
 async function cancelJob(req, res){
@@ -22,6 +23,7 @@ async function cancelJob(req, res){
     const canceledJob = await copyService.cancelJob();
     res.send(canceledJob)
   } catch(err){
+    console.log('ERROR >>>', err);
     res.status(404).send(err);
   }
 }
@@ -32,6 +34,7 @@ async function copyNow(req, res) {
     const copiedFiles = await copyService.copyNow(payload);
     res.send(copiedFiles)
   }catch(err){
+    console.log('ERROR >>>', err);
     res.status(404).send(err);
   }
 }

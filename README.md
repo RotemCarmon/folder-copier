@@ -24,5 +24,5 @@ Open a commend line in the main folder and run
 npm run start-app:dev
 ```
 
-By **Rotem Carmon**
+by **Rotem Carmon**
 

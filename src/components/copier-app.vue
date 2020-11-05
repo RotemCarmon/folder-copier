@@ -7,27 +7,7 @@
         @setStudent="setStudent"
       />
 
-      <b-row class="justify-content-center px-5 mb-4">
-        <b-col>
-          <b-form-select
-            v-model="sprint"
-            :options="sprints"
-            class="curser"
-          ></b-form-select>
-        </b-col>
-        <b-col>
-          <b-form-select
-            v-model="delivery"
-            :options="deliveries"
-            class="curser"
-          ></b-form-select>
-        </b-col>
-        <b-col>
-          <b-button @click="onCopy()" variant="success" class="w-100"
-            >Copy Now</b-button
-          >
-        </b-col>
-      </b-row>
+      <input-cmp @copy="onCopy" />
 
       <schedule-cmp @setSchedule="onCopy" />
     </b-container>
@@ -51,6 +31,7 @@
 import { copierService } from "../services/copierService.js";
 import studentList from "./student-list.vue";
 import scheduleCmp from "./schedule-cmp.vue";
+import inputCmp from "./input-cmp.vue";
 
 export default {
   name: "copier-app",
@@ -58,10 +39,8 @@ export default {
     return {
       srcInput: "",
       students: null,
-      sprint: "Sprint2",
-      delivery: "Wednesday",
-      sprints: ["Sprint1", "Sprint2", "Sprint3", "Sprint4"],
-      deliveries: ["Wednesday", "Thursday", "Saturday"],
+      // mustTxt: '',
+      // optionalTxt:'',
       chosenStudents: [],
       msg: "",
       variant: "success",
@@ -82,8 +61,8 @@ export default {
         this.chosenStudents.splice(idx, 1);
       }
     },
-
-    onCopy(dateTime = "") {
+    // The schedule methods doesn't return the txts they must be in this cmp's data
+    onCopy({mustTxt, optionalTxt}, dateTime = "") {
       if (!this.chosenStudents.length) {
         this.variant = "danger";
         this.msg = "Most choose students";
@@ -91,10 +70,11 @@ export default {
       }
       const payload = {
         students: this.chosenStudents,
-        sprint: this.sprint,
-        delivery: this.delivery,
+        mustTxt,
+        optionalTxt,
         dateTime,
       };
+      console.log('Payload...', payload);
       this.variant = "success";
       if (dateTime) this.msg = "A Schedule was made";
       else this.msg = "A Copy was made";
@@ -120,6 +100,7 @@ export default {
   components: {
     studentList,
     scheduleCmp,
+    inputCmp
   },
 };
 </script>
